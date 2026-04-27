@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="UCIP Pediatria">
+<meta name="theme-color" content="#0a0f1a">
+<title>UCIP Pediatria</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f1a;
+  --s1:#111827;
+  --s2:#1a2332;
+  --s3:#1f2d40;
+  --bd:#1e3050;
+  --ac:#38bdf8;
+  --ac2:#0ea5e9;
+  --red:#f87171;
+  --red2:#ef4444;
+  --grn:#4ade80;
+  --ylw:#fbbf24;
+  --orn:#fb923c;
+  --pur:#a78bfa;
+  --tx:#e2eaf4;
+  --tx2:#94a3b8;
+  --tx3:#64748b;
+  --st:env(safe-area-inset-top,0px);
+  --sb:env(safe-area-inset-bottom,0px)
+}
+html,body{
+  height:100%;background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;
+  overflow:hidden;-webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;font-size:15px
+}
+#app{display:flex;flex-direction:column;height:100%;height:-webkit-fill-available}
+
+/* ── HEADER ── */
+#hd{
+  background:var(--s1);
+  border-bottom:1px solid var(--bd);
+  padding:calc(var(--st)+10px) 14px 10px;
+  flex-shrink:0
+}
+.hd-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.hd-logo{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--ac2),#0369a1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:white;flex-shrink:0;
+  letter-spacing:-.5px
+}
+.hd-info{flex:1}
+.hd-info h1{font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--tx)}
+.hd-info p{font-size:11px;color:var(--tx3);margin-top:1px}
+.hd-count{font-size:11px;color:var(--tx3);flex-shrink:0}
+
+/* SEARCH */
+.srch{position:relative}
+.srch input{
+  width:100%;background:var(--s2);
+  border:1px solid var(--bd);border-radius:10px;
+  padding:10px 36px 10px 38px;
+  color:var(--tx);font-size:15px;outline:none;
+  -webkit-appearance:none;transition:border-color .15s
+}
+.srch input:focus{border-color:var(--ac)}
+.srch input::placeholder{color:var(--tx3)}
+.srch .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:15px}
+.srch .sc{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--tx3);font-size:17px;cursor:pointer;
+  padding:2px;display:none;line-height:1}
+
+/* ── NAV TABS ── */
+#tabs{
+  background:var(--s1);border-bottom:1px solid var(--bd);
+  display:flex;flex-shrink:0;overflow-x:auto;
+  scrollbar-width:none;-ms-overflow-style:none
+}
+#tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:9px 14px;font-size:12px;font-weight:600;
+  color:var(--tx3);cursor:pointer;flex-shrink:0;
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+  white-space:nowrap;letter-spacing:.2px
+}
+.tab.on{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* ── MAIN ── */
+#main{flex:1;overflow:hidden;position:relative}
+.view{position:absolute;inset:0;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;display:none}
+.view.on{display:block}
+
+/* ── DRUG LIST ── */
+.section-hd{
+  padding:14px 14px 6px;font-size:10px;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px
+}
+.drug-list{padding:0 10px 8px}
+.drug-row{
+  background:var(--s1);border:1px solid var(--bd);
+  border-radius:10px;padding:12px 14px;
+  margin-bottom:6px;cursor:pointer;
+  display:flex;align-items:center;gap:10px;
+  transition:border-color .12s,background .12s
+}
+.drug-row:active{background:var(--s2);border-color:var(--ac)}
+.drug-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.drug-info{flex:1;min-width:0}
+.drug-name{font-size:14px;font-weight:600;color:var(--tx);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drug-class{font-size:11px;color:var(--tx3);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drug-arrow{color:var(--tx3);font-size:14px;flex-shrink:0}
+.cat-badge{
+  font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.5px;flex-shrink:0
+}
+
+/* ── DRUG DETAIL ── */
+#v-detail{padding:0;background:var(--bg)}
+.detail-hd{
+  background:var(--s1);border-bottom:1px solid var(--bd);
+  padding:12px 14px;flex-shrink:0;position:sticky;top:0;z-index:10
+}
+.back-btn{
+  background:none;border:none;color:var(--ac);
+  font-size:14px;cursor:pointer;padding:0;
+  display:flex;align-items:center;gap:4px;margin-bottom:8px
+}
+.detail-name{font-size:20px;font-weight:700;color:var(--tx);line-height:1.2}
+.detail-class{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.4}
+.src-badge{
+  display:inline-block;margin-top:8px;
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;
+  letter-spacing:.4px
+}
+.src-original{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.src-added{background:rgba(251,191,36,.1);color:var(--ylw);border:1px solid rgba(251,191,36,.2)}
+
+.detail-body{padding:12px}
+
+/* CARDS */
+.card{
+  background:var(--s1);border:1px solid var(--bd);
+  border-radius:12px;padding:14px;margin-bottom:10px
+}
+.card-title{
+  font-size:10px;font-weight:700;color:var(--ac);
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:10px;padding-bottom:8px;
+  border-bottom:1px solid var(--bd)
+}
+
+/* INDICATION LIST */
+.ind-list{list-style:none}
+.ind-list li{
+  padding:5px 0;font-size:13px;color:var(--tx2);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  line-height:1.5;display:flex;align-items:flex-start;gap:8px
+}
+.ind-list li:last-child{border:none;padding-bottom:0}
+.ind-list li::before{content:"•";color:var(--ac);flex-shrink:0;margin-top:1px}
+
+/* DOSE TABLE */
+.dose-item{
+  border-bottom:1px solid rgba(255,255,255,.05);
+  padding:10px 0
+}
+.dose-item:last-child{border:none;padding-bottom:0}
+.dose-ind{
+  font-size:11px;font-weight:700;color:var(--ac);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px
+}
+.dose-val{font-size:14px;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:2px}
+.dose-max{font-size:11px;color:var(--orn);margin-bottom:2px}
+.dose-freq{font-size:11px;color:var(--tx3);margin-bottom:2px}
+.dose-note{
+  font-size:11px;color:var(--tx3);line-height:1.5;
+  background:rgba(255,255,255,.03);border-radius:6px;
+  padding:5px 8px;margin-top:4px;border-left:2px solid var(--bd)
+}
+
+/* PREP */
+.prep-text{font-size:13px;color:var(--tx2);line-height:1.7;white-space:pre-wrap}
+
+/* CI LIST */
+.ci-item{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:13px;color:var(--tx2);line-height:1.5
+}
+.ci-item:last-child{border:none}
+.ci-item::before{content:"⛔";flex-shrink:0;font-size:12px;margin-top:1px}
+
+/* ALERTS */
+.alert-item{
+  background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.15);
+  border-radius:8px;padding:9px 11px;margin-bottom:6px;
+  font-size:12px;color:#fca5a5;line-height:1.5
+}
+.alert-item:last-child{margin-bottom:0}
+
+/* SOURCE */
+.source-text{font-size:11px;color:var(--tx3);line-height:1.6;font-style:italic}
+
+/* ── SEARCH RESULTS ── */
+#v-search{padding:10px}
+.sr-count{font-size:11px;color:var(--tx3);padding:2px 4px;margin-bottom:6px}
+.sr-row{
+  background:var(--s1);border:1px solid var(--bd);
+  border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer
+}
+.sr-row:active{background:var(--s2);border-color:var(--ac)}
+.sr-name{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:3px}
+.sr-cat{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
+.hl{color:var(--ac);font-weight:700}
+#no-results{text-align:center;padding:50px 20px;color:var(--tx3)}
+#no-results .em{font-size:36px;display:block;margin-bottom:10px}
+
+/* ── CATEGORY COLORS ── */
+.cat-emergencia{color:#f87171;background:rgba(248,113,113,.12)}
+.cat-sedacao{color:#a78bfa;background:rgba(167,139,250,.12)}
+.cat-bnmnd{color:#60a5fa;background:rgba(96,165,250,.12)}
+.cat-vasoactivo{color:#f97316;background:rgba(249,115,22,.12)}
+.cat-antiepileptico{color:#34d399;background:rgba(52,211,153,.12)}
+.cat-analgesico{color:#fbbf24;background:rgba(251,191,36,.12)}
+.cat-antibiotico{color:#38bdf8;background:rgba(56,189,248,.12)}
+.cat-corticoide{color:#e879f9;background:rgba(232,121,249,.12)}
+.cat-broncodilatador{color:#86efac;background:rgba(134,239,172,.12)}
+.cat-diuretico{color:#7dd3fc;background:rgba(125,211,252,.12)}
+.cat-neonatologia{color:#fda4af;background:rgba(253,164,175,.12)}
+.cat-hemostase{color:#fb923c;background:rgba(251,146,60,.12)}
+.cat-cardiovascular{color:#f472b6;background:rgba(244,114,182,.12)}
+.cat-electrolitico{color:#a3e635;background:rgba(163,230,53,.12)}
+.cat-metabolismo{color:#4ade80;background:rgba(74,222,128,.12)}
+.cat-antidoto{color:#facc15;background:rgba(250,204,21,.12)}
+
+.dot-emergencia{background:#f87171}
+.dot-sedacao{background:#a78bfa}
+.dot-bnmnd{background:#60a5fa}
+.dot-vasoactivo{background:#f97316}
+.dot-antiepileptico{background:#34d399}
+.dot-analgesico{background:#fbbf24}
+.dot-antibiotico{background:#38bdf8}
+.dot-corticoide{background:#e879f9}
+.dot-broncodilatador{background:#86efac}
+.dot-diuretico{background:#7dd3fc}
+.dot-neonatologia{background:#fda4af}
+.dot-hemostase{background:#fb923c}
+.dot-cardiovascular{background:#f472b6}
+.dot-electrolitico{background:#a3e635}
+.dot-metabolismo{background:#4ade80}
+.dot-antidoto{background:#facc15}
+
+/* ── INDEX ── */
+.idx-letter{
+  padding:10px 14px 4px;font-size:11px;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:1px;
+  position:sticky;top:0;background:var(--bg);z-index:5
+}
+.idx-row{
+  padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:pointer;display:flex;align-items:center;gap:10px
+}
+.idx-row:active{background:var(--s2)}
+.idx-row-name{font-size:14px;flex:1}
+.idx-row-cat{font-size:10px;padding:2px 6px;border-radius:4px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HEADER -->
+  <div id="hd">
+    <div class="hd-top">
+      <div class="hd-logo">UCI<br>PED</div>
+      <div class="hd-info">
+        <h1>UCIP Pediatria</h1>
+        <p>Formulário Farmacológico · Evidence-Based</p>
+      </div>
+      <div class="hd-count" id="drug-count"></div>
+    </div>
+    <div class="srch">
+      <span class="si">🔍</span>
+      <input type="search" id="si" placeholder="Pesquisar fármaco, indicação..."
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="sc" id="sc" onclick="clearSrch()">✕</button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div id="tabs">
+    <div class="tab on" onclick="showTab('home')" id="tab-home">🏠 Início</div>
+    <div class="tab" onclick="showTab('emergencia')" id="tab-emergencia">⚡ Emergência</div>
+    <div class="tab" onclick="showTab('sedacao')" id="tab-sedacao">💉 Sedação</div>
+    <div class="tab" onclick="showTab('antibiotico')" id="tab-antibiotico">🦠 Antibióticos</div>
+    <div class="tab" onclick="showTab('neuro')" id="tab-neuro">🧠 Neurologia</div>
+    <div class="tab" onclick="showTab('neo')" id="tab-neo">🍼 Neonatologia</div>
+    <div class="tab" onclick="showTab('indice')" id="tab-indice">📋 Índice</div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- HOME -->
+    <div id="v-home" class="view on"></div>
+
+    <!-- EMERGENCIA -->
+    <div id="v-emergencia" class="view"></div>
+
+    <!-- SEDACAO -->
+    <div id="v-sedacao" class="view"></div>
+
+    <!-- ANTIBIOTICOS -->
+    <div id="v-antibiotico" class="view"></div>
+
+    <!-- NEURO -->
+    <div id="v-neuro" class="view"></div>
+
+    <!-- NEO -->
+    <div id="v-neo" class="view"></div>
+
+    <!-- INDICE -->
+    <div id="v-indice" class="view"></div>
+
+    <!-- SEARCH -->
+    <div id="v-search" class="view"></div>
+
+    <!-- DETAIL -->
+    <div id="v-detail" class="view"></div>
+
+  </div>
+</div>
+
+<script src="drugs_data.js"></script>
+<script>
+// ── CONFIG ──
+var CAT_LABELS = {
+  emergencia:'Emergência / Reanimação',
+  sedacao:'Sedação & Analgesia',
+  bnmnd:'Bloqueadores Neuromusculares',
+  vasoactivo:'Vasoactivos / Inotrópicos',
+  antiepileptico:'Antiepilépticos',
+  analgesico:'Analgesia / Antipiréticos',
+  antibiotico:'Antibióticos',
+  corticoide:'Corticoides',
+  broncodilatador:'Broncodilatadores',
+  diuretico:'Diuréticos',
+  neonatologia:'Neonatologia',
+  hemostase:'Hemostase / Coagulação',
+  cardiovascular:'Cardiovascular',
+  electrolitico:'Electrólitos',
+  metabolismo:'Metabolismo',
+  antidoto:'Antídotos'
+};
+
+var SRC_LABEL = {
+  original: '✓ Baseado no Formulário de Pediatria 3ª Ed.',
+  added: '★ Adicionado — fontes bibliográficas independentes'
+};
+
+// Mark sources
+DRUGS.forEach(function(d) {
+  if (!d.src) d.src = 'original';
+});
+
+// ── STATE ──
+var currentTab = 'home';
+var prevTab = 'home';
+var currentDetail = null;
+
+// ── INIT ──
+document.getElementById('drug-count').textContent = DRUGS.length + ' fármacos';
+buildHome();
+buildCatView('v-emergencia', ['emergencia']);
+buildCatView('v-sedacao', ['sedacao','bnmnd']);
+buildCatView('v-antibiotico', ['antibiotico','antidoto']);
+buildCatView('v-neuro', ['antiepileptico']);
+buildCatView('v-neo', ['neonatologia']);
+buildIndex();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
+}
+
+// ── BUILD HOME ──
+function buildHome() {
+  var sections = [
+    {title:'⚡ Emergência & Reanimação', cats:['emergencia']},
+    {title:'💉 Sedação, Analgesia & BNMND', cats:['sedacao','bnmnd','analgesico']},
+    {title:'❤️ Vasoactivos & Cardiovascular', cats:['vasoactivo','cardiovascular','diuretico']},
+    {title:'🧠 Neurologia', cats:['antiepileptico']},
+    {title:'🦠 Anti-infecciosos', cats:['antibiotico','antidoto']},
+    {title:'🫁 Broncodilatadores & Corticoides', cats:['broncodilatador','corticoide']},
+    {title:'🍼 Neonatologia', cats:['neonatologia']},
+    {title:'🧪 Electrólitos & Metabolismo', cats:['electrolitico','metabolismo','hemostase']}
+  ];
+  var html = '';
+  sections.forEach(function(sec) {
+    var drugs = DRUGS.filter(function(d){ return sec.cats.indexOf(d.category) >= 0; });
+    if (!drugs.length) return;
+    html += '<div class="section-hd">' + sec.title + '</div>';
+    html += '<div class="drug-list">';
+    drugs.forEach(function(d) {
+      html += drugRowHtml(d);
+    });
+    html += '</div>';
+  });
+  document.getElementById('v-home').innerHTML = html;
+}
+
+// ── BUILD CAT VIEW ──
+function buildCatView(vid, cats) {
+  var drugs = DRUGS.filter(function(d){ return cats.indexOf(d.category) >= 0; });
+  var grouped = {};
+  drugs.forEach(function(d){
+    if (!grouped[d.category]) grouped[d.category] = [];
+    grouped[d.category].push(d);
+  });
+  var html = '';
+  cats.forEach(function(cat){
+    if (!grouped[cat] || !grouped[cat].length) return;
+    html += '<div class="section-hd">' + (CAT_LABELS[cat] || cat) + '</div>';
+    html += '<div class="drug-list">';
+    grouped[cat].forEach(function(d){ html += drugRowHtml(d); });
+    html += '</div>';
+  });
+  document.getElementById(vid).innerHTML = html;
+}
+
+// ── DRUG ROW ──
+function drugRowHtml(d) {
+  var idx = DRUGS.indexOf(d);
+  return '<div class="drug-row" onclick="showDetail('+idx+')">' +
+    '<div class="drug-dot dot-'+d.category+'"></div>' +
+    '<div class="drug-info">' +
+      '<div class="drug-name">'+esc(d.name)+'</div>' +
+      '<div class="drug-class">'+esc(d.class.split('—')[0].trim())+'</div>' +
+    '</div>' +
+    '<span class="cat-badge cat-'+d.category+'">'+esc(CAT_LABELS[d.category]||d.category).split(' ')[0]+'</span>' +
+    '<span class="drug-arrow">›</span>' +
+  '</div>';
+}
+
+// ── BUILD INDEX ──
+function buildIndex() {
+  var sorted = DRUGS.slice().sort(function(a,b){
+    return a.name.localeCompare(b.name,'pt');
+  });
+  var letters = {};
+  sorted.forEach(function(d){
+    var l = d.name[0].toUpperCase();
+    if (!letters[l]) letters[l] = [];
+    letters[l].push(d);
+  });
+  var html = '';
+  Object.keys(letters).sort().forEach(function(l){
+    html += '<div class="idx-letter">'+l+'</div>';
+    letters[l].forEach(function(d){
+      var idx = DRUGS.indexOf(d);
+      html += '<div class="idx-row" onclick="showDetail('+idx+')">' +
+        '<div class="drug-dot dot-'+d.category+'" style="width:7px;height:7px"></div>' +
+        '<div class="idx-row-name">'+esc(d.name)+'</div>' +
+        '<span class="idx-row-cat cat-'+d.category+'">'+esc((CAT_LABELS[d.category]||d.category).split(' ')[0])+'</span>' +
+        '<span class="drug-arrow">›</span>' +
+      '</div>';
+    });
+  });
+  document.getElementById('v-indice').innerHTML = html;
+}
+
+// ── SHOW DETAIL ──
+function showDetail(idx) {
+  var d = DRUGS[idx];
+  currentDetail = idx;
+  prevTab = currentTab;
+
+  var src = d.src === 'added'
+    ? '<span class="src-badge src-added">★ Adicionado — fontes bibliográficas</span>'
+    : '<span class="src-badge src-original">✓ Formulário de Pediatria 3ª Ed.</span>';
+
+  // Indications
+  var inds = '';
+  if (d.indication && d.indication.length) {
+    inds = '<div class="card"><div class="card-title">Indicações</div><ul class="ind-list">';
+    d.indication.forEach(function(i){ inds += '<li>'+esc(i)+'</li>'; });
+    inds += '</ul></div>';
+  }
+
+  // Doses
+  var doses = '';
+  if (d.dose && d.dose.length) {
+    doses = '<div class="card"><div class="card-title">Posologia Pediátrica</div>';
+    d.dose.forEach(function(dv){
+      doses += '<div class="dose-item">';
+      doses += '<div class="dose-ind">'+esc(dv.ind)+'</div>';
+      doses += '<div class="dose-val">'+esc(dv.val)+'</div>';
+      if (dv.max) doses += '<div class="dose-max">Máx: '+esc(dv.max)+'</div>';
+      if (dv.freq) doses += '<div class="dose-freq">'+esc(dv.freq)+'</div>';
+      if (dv.note) doses += '<div class="dose-note">'+esc(dv.note)+'</div>';
+      doses += '</div>';
+    });
+    doses += '</div>';
+  }
+
+  // Prep
+  var prep = '';
+  if (d.prep) {
+    prep = '<div class="card"><div class="card-title">Preparação & Administração</div>' +
+      '<div class="prep-text">'+esc(d.prep)+'</div></div>';
+  }
+
+  // CI
+  var ci = '';
+  if (d.ci && d.ci.length) {
+    ci = '<div class="card"><div class="card-title">Contra-indicações</div>';
+    d.ci.forEach(function(c){ ci += '<div class="ci-item">'+esc(c)+'</div>'; });
+    ci += '</div>';
+  }
+
+  // Alerts
+  var alerts = '';
+  if (d.alert && d.alert.length) {
+    alerts = '<div class="card"><div class="card-title">⚠️ Alertas Clínicos</div>';
+    d.alert.forEach(function(a){ alerts += '<div class="alert-item">'+esc(a)+'</div>'; });
+    alerts += '</div>';
+  }
+
+  // Source
+  var source = '';
+  if (d.source) {
+    source = '<div class="card"><div class="card-title">Fontes</div>' +
+      '<div class="source-text">'+esc(d.source)+'</div></div>';
+  }
+
+  var html =
+    '<div class="detail-hd">' +
+      '<button class="back-btn" onclick="goBack()">‹ Voltar</button>' +
+      '<div class="detail-name">'+esc(d.name)+'</div>' +
+      '<div class="detail-class">'+esc(d.class)+'</div>' +
+      src +
+    '</div>' +
+    '<div class="detail-body">' +
+      inds + doses + prep + ci + alerts + source +
+    '</div>';
+
+  document.getElementById('v-detail').innerHTML = html;
+  showView('detail');
+  document.getElementById('v-detail').scrollTo(0,0);
+}
+
+function goBack() {
+  showTab(prevTab, true);
+}
+
+// ── SEARCH ──
+var si = document.getElementById('si');
+var sc = document.getElementById('sc');
+var db;
+
+si.addEventListener('input', function(){
+  clearTimeout(db);
+  var q = si.value.trim();
+  sc.style.display = q ? 'block' : 'none';
+  if (!q) { showTab(currentTab === 'search' ? prevTab : currentTab, true); return; }
+  db = setTimeout(function(){ doSearch(q); }, 200);
+});
+
+function clearSrch() {
+  si.value = '';
+  sc.style.display = 'none';
+  showTab(prevTab === 'search' ? 'home' : prevTab, true);
+  si.blur();
+}
+
+function doSearch(query) {
+  var q = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  var matches = [];
+  DRUGS.forEach(function(d, idx){
+    var score = 0;
+    var nameNorm = d.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (nameNorm.includes(q)) score += nameNorm.startsWith(q) ? 20 : 10;
+    var classNorm = d.class.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (classNorm.includes(q)) score += 5;
+    if (d.indication) {
+      d.indication.forEach(function(i){
+        if (i.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q)) score += 3;
+      });
+    }
+    if (score > 0) matches.push({d:d, idx:idx, score:score});
+  });
+  matches.sort(function(a,b){ return b.score - a.score; });
+
+  var re = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+  var html = matches.length
+    ? '<div class="sr-count">'+matches.length+' resultado(s)</div>'
+    : '<div id="no-results"><span class="em">🔎</span>Sem resultados para "'+esc(query)+'"</div>';
+
+  matches.forEach(function(m){
+    var nameHl = esc(m.d.name).replace(re, function(x){ return '<span class="hl">'+x+'</span>'; });
+    html += '<div class="sr-row" onclick="showDetail('+m.idx+')">' +
+      '<div class="sr-name">'+nameHl+'</div>' +
+      '<div class="sr-cat cat-'+m.d.category+'" style="margin-top:4px;display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">'+esc(CAT_LABELS[m.d.category]||m.d.category)+'</div>' +
+    '</div>';
+  });
+
+  document.getElementById('v-search').innerHTML = html;
+  showView('search');
+}
+
+// ── NAVIGATION ──
+function showTab(tab, keepSearch) {
+  if (!keepSearch) { si.value = ''; sc.style.display = 'none'; }
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  var tabEl = document.getElementById('tab-'+tab);
+  if (tabEl) tabEl.classList.add('on');
+  showView(tab);
+}
+
+function showView(v) {
+  document.querySelectorAll('.view').forEach(function(el){ el.classList.remove('on'); });
+  var el = document.getElementById('v-'+v);
+  if (el) el.classList.add('on');
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
