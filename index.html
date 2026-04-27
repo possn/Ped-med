@@ -13,219 +13,202 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0f1a;
-  --s1:#111827;
-  --s2:#1a2332;
-  --s3:#1f2d40;
-  --bd:#1e3050;
-  --ac:#38bdf8;
-  --ac2:#0ea5e9;
-  --red:#f87171;
-  --red2:#ef4444;
-  --grn:#4ade80;
-  --ylw:#fbbf24;
-  --orn:#fb923c;
-  --pur:#a78bfa;
-  --tx:#e2eaf4;
-  --tx2:#94a3b8;
-  --tx3:#64748b;
-  --st:env(safe-area-inset-top,0px);
-  --sb:env(safe-area-inset-bottom,0px)
+  --bg:#0a0f1a;--s1:#111827;--s2:#1a2332;--s3:#1f2d40;--bd:#1e3050;
+  --ac:#38bdf8;--ac2:#0ea5e9;--red:#f87171;--grn:#4ade80;--ylw:#fbbf24;
+  --orn:#fb923c;--pur:#a78bfa;--tx:#e2eaf4;--tx2:#94a3b8;--tx3:#64748b;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)
 }
-html,body{
-  height:100%;background:var(--bg);color:var(--tx);
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;
-  overflow:hidden;-webkit-tap-highlight-color:transparent;
-  -webkit-font-smoothing:antialiased;font-size:15px
-}
+html,body{height:100%;background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  overflow:hidden;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
 #app{display:flex;flex-direction:column;height:100%;height:-webkit-fill-available}
 
-/* ── HEADER ── */
-#hd{
-  background:var(--s1);
-  border-bottom:1px solid var(--bd);
-  padding:calc(var(--st)+10px) 14px 10px;
-  flex-shrink:0
-}
+/* HEADER */
+#hd{background:var(--s1);border-bottom:1px solid var(--bd);
+  padding:calc(var(--st)+10px) 14px 10px;flex-shrink:0}
 .hd-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.hd-logo{
-  width:36px;height:36px;border-radius:10px;
+.hd-logo{width:36px;height:36px;border-radius:10px;
   background:linear-gradient(135deg,var(--ac2),#0369a1);
   display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:800;color:white;flex-shrink:0;
-  letter-spacing:-.5px
-}
+  font-size:11px;font-weight:800;color:white;flex-shrink:0;text-align:center;line-height:1.2}
+.hd-info h1{font-size:16px;font-weight:700;color:var(--tx)}
+.hd-info p{font-size:10px;color:var(--tx3);margin-top:1px}
 .hd-info{flex:1}
-.hd-info h1{font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--tx)}
-.hd-info p{font-size:11px;color:var(--tx3);margin-top:1px}
-.hd-count{font-size:11px;color:var(--tx3);flex-shrink:0}
-
-/* SEARCH */
 .srch{position:relative}
-.srch input{
-  width:100%;background:var(--s2);
-  border:1px solid var(--bd);border-radius:10px;
-  padding:10px 36px 10px 38px;
-  color:var(--tx);font-size:15px;outline:none;
-  -webkit-appearance:none;transition:border-color .15s
-}
+.srch input{width:100%;background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:10px 36px 10px 38px;color:var(--tx);font-size:15px;
+  outline:none;-webkit-appearance:none;transition:border-color .15s}
 .srch input:focus{border-color:var(--ac)}
 .srch input::placeholder{color:var(--tx3)}
-.srch .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:15px}
+.srch .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--tx3)}
 .srch .sc{position:absolute;right:10px;top:50%;transform:translateY(-50%);
-  background:none;border:none;color:var(--tx3);font-size:17px;cursor:pointer;
-  padding:2px;display:none;line-height:1}
+  background:none;border:none;color:var(--tx3);font-size:17px;cursor:pointer;display:none}
 
-/* ── NAV TABS ── */
-#tabs{
-  background:var(--s1);border-bottom:1px solid var(--bd);
-  display:flex;flex-shrink:0;overflow-x:auto;
-  scrollbar-width:none;-ms-overflow-style:none
-}
-#tabs::-webkit-scrollbar{display:none}
-.tab{
-  padding:9px 14px;font-size:12px;font-weight:600;
-  color:var(--tx3);cursor:pointer;flex-shrink:0;
-  border-bottom:2px solid transparent;
-  transition:color .15s,border-color .15s;
-  white-space:nowrap;letter-spacing:.2px
-}
-.tab.on{color:var(--ac);border-bottom-color:var(--ac)}
+/* BOTTOM NAV */
+#bnav{background:var(--s1);border-top:1px solid var(--bd);
+  padding:6px 0 calc(var(--sb)+4px);display:flex;flex-shrink:0}
+.bnav-tab{flex:1;display:flex;flex-direction:column;align-items:center;
+  gap:2px;padding:6px 0;cursor:pointer;-webkit-user-select:none}
+.bnav-tab .ico{font-size:22px;line-height:1}
+.bnav-tab .lbl{font-size:9px;color:var(--tx3);letter-spacing:.2px}
+.bnav-tab.on .ico{filter:drop-shadow(0 0 6px var(--ac))}
+.bnav-tab.on .lbl{color:var(--ac)}
 
-/* ── MAIN ── */
+/* MAIN */
 #main{flex:1;overflow:hidden;position:relative}
-.view{position:absolute;inset:0;overflow-y:auto;
-  -webkit-overflow-scrolling:touch;display:none}
+.view{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}
 .view.on{display:block}
 
-/* ── DRUG LIST ── */
-.section-hd{
-  padding:14px 14px 6px;font-size:10px;font-weight:700;
-  color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px
-}
+/* SECTION */
+.sec-hd{padding:14px 14px 6px;font-size:10px;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px}
 .drug-list{padding:0 10px 8px}
-.drug-row{
-  background:var(--s1);border:1px solid var(--bd);
-  border-radius:10px;padding:12px 14px;
-  margin-bottom:6px;cursor:pointer;
-  display:flex;align-items:center;gap:10px;
-  transition:border-color .12s,background .12s
-}
+.drug-row{background:var(--s1);border:1px solid var(--bd);border-radius:10px;
+  padding:12px 14px;margin-bottom:6px;cursor:pointer;
+  display:flex;align-items:center;gap:10px;transition:border-color .12s}
 .drug-row:active{background:var(--s2);border-color:var(--ac)}
 .drug-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .drug-info{flex:1;min-width:0}
-.drug-name{font-size:14px;font-weight:600;color:var(--tx);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.drug-class{font-size:11px;color:var(--tx3);margin-top:2px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.drug-arrow{color:var(--tx3);font-size:14px;flex-shrink:0}
-.cat-badge{
-  font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;
-  text-transform:uppercase;letter-spacing:.5px;flex-shrink:0
-}
+.drug-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drug-class{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drug-arr{color:var(--tx3);font-size:14px;flex-shrink:0}
+.cat-pill{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
 
-/* ── DRUG DETAIL ── */
-#v-detail{padding:0;background:var(--bg)}
-.detail-hd{
-  background:var(--s1);border-bottom:1px solid var(--bd);
-  padding:12px 14px;flex-shrink:0;position:sticky;top:0;z-index:10
-}
-.back-btn{
-  background:none;border:none;color:var(--ac);
-  font-size:14px;cursor:pointer;padding:0;
-  display:flex;align-items:center;gap:4px;margin-bottom:8px
-}
-.detail-name{font-size:20px;font-weight:700;color:var(--tx);line-height:1.2}
-.detail-class{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.4}
-.src-badge{
-  display:inline-block;margin-top:8px;
-  font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;
-  letter-spacing:.4px
-}
-.src-original{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
-.src-added{background:rgba(251,191,36,.1);color:var(--ylw);border:1px solid rgba(251,191,36,.2)}
-
-.detail-body{padding:12px}
-
-/* CARDS */
-.card{
-  background:var(--s1);border:1px solid var(--bd);
-  border-radius:12px;padding:14px;margin-bottom:10px
-}
-.card-title{
-  font-size:10px;font-weight:700;color:var(--ac);
-  text-transform:uppercase;letter-spacing:1px;
-  margin-bottom:10px;padding-bottom:8px;
-  border-bottom:1px solid var(--bd)
-}
-
-/* INDICATION LIST */
+/* DETAIL */
+#v-detail{background:var(--bg)}
+.det-hd{background:var(--s1);border-bottom:1px solid var(--bd);
+  padding:12px 14px;position:sticky;top:0;z-index:10}
+.back-btn{background:none;border:none;color:var(--ac);font-size:14px;
+  cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.det-name{font-size:20px;font-weight:700;line-height:1.2}
+.det-class{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.4}
+.src-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:5px;letter-spacing:.4px}
+.src-ok{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.src-add{background:rgba(251,191,36,.1);color:var(--ylw);border:1px solid rgba(251,191,36,.2)}
+.det-body{padding:12px}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:10px}
+.card-title{font-size:10px;font-weight:700;color:var(--ac);text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
 .ind-list{list-style:none}
-.ind-list li{
-  padding:5px 0;font-size:13px;color:var(--tx2);
-  border-bottom:1px solid rgba(255,255,255,.04);
-  line-height:1.5;display:flex;align-items:flex-start;gap:8px
-}
+.ind-list li{padding:5px 0;font-size:13px;color:var(--tx2);line-height:1.5;
+  border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px}
 .ind-list li:last-child{border:none;padding-bottom:0}
 .ind-list li::before{content:"•";color:var(--ac);flex-shrink:0;margin-top:1px}
-
-/* DOSE TABLE */
-.dose-item{
-  border-bottom:1px solid rgba(255,255,255,.05);
-  padding:10px 0
-}
+.dose-item{border-bottom:1px solid rgba(255,255,255,.05);padding:10px 0}
 .dose-item:last-child{border:none;padding-bottom:0}
-.dose-ind{
-  font-size:11px;font-weight:700;color:var(--ac);
-  text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px
-}
-.dose-val{font-size:14px;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:2px}
+.dose-ind{font-size:11px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.dose-val{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:2px}
 .dose-max{font-size:11px;color:var(--orn);margin-bottom:2px}
 .dose-freq{font-size:11px;color:var(--tx3);margin-bottom:2px}
-.dose-note{
-  font-size:11px;color:var(--tx3);line-height:1.5;
-  background:rgba(255,255,255,.03);border-radius:6px;
-  padding:5px 8px;margin-top:4px;border-left:2px solid var(--bd)
-}
-
-/* PREP */
+.dose-note{font-size:11px;color:var(--tx3);line-height:1.5;background:rgba(255,255,255,.03);
+  border-radius:6px;padding:5px 8px;margin-top:4px;border-left:2px solid var(--bd)}
 .prep-text{font-size:13px;color:var(--tx2);line-height:1.7;white-space:pre-wrap}
-
-/* CI LIST */
-.ci-item{
-  display:flex;align-items:flex-start;gap:8px;
-  padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);
-  font-size:13px;color:var(--tx2);line-height:1.5
-}
+.ci-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--tx2);line-height:1.5}
 .ci-item:last-child{border:none}
 .ci-item::before{content:"⛔";flex-shrink:0;font-size:12px;margin-top:1px}
+.alert-item{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.15);
+  border-radius:8px;padding:9px 11px;margin-bottom:6px;font-size:12px;color:#fca5a5;line-height:1.5}
+.src-text{font-size:11px;color:var(--tx3);line-height:1.6;font-style:italic}
 
-/* ALERTS */
-.alert-item{
-  background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.15);
-  border-radius:8px;padding:9px 11px;margin-bottom:6px;
-  font-size:12px;color:#fca5a5;line-height:1.5
-}
-.alert-item:last-child{margin-bottom:0}
+/* COMPATIBILITY */
+#v-compat{padding:14px}
+.compat-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.compat-sub{font-size:12px;color:var(--tx3);margin-bottom:16px;line-height:1.5}
+.compat-search-wrap{position:relative;margin-bottom:8px}
+.compat-search-wrap input{width:100%;background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:12px 14px 12px 40px;color:var(--tx);font-size:15px;
+  outline:none;-webkit-appearance:none}
+.compat-search-wrap input:focus{border-color:var(--ac)}
+.compat-search-wrap input::placeholder{color:var(--tx3)}
+.cs-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--tx3)}
+.drug-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:32px}
+.chip{background:var(--s2);border:1px solid var(--ac);border-radius:20px;
+  padding:5px 12px;font-size:13px;font-weight:600;color:var(--ac);
+  display:flex;align-items:center;gap:6px;cursor:pointer}
+.chip .rm{color:var(--tx3);font-size:15px}
+.drug-suggestions{background:var(--s2);border:1px solid var(--bd);border-radius:10px;
+  overflow:hidden;margin-bottom:12px;display:none}
+.drug-sug-item{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:pointer;font-size:14px}
+.drug-sug-item:last-child{border:none}
+.drug-sug-item:active{background:var(--s3)}
+.compat-btn{width:100%;background:var(--ac2);border:none;border-radius:12px;
+  padding:14px;color:white;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:16px}
+.compat-btn:disabled{opacity:.4;pointer-events:none}
+.compat-result{border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid}
+.cr-compatible{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.25)}
+.cr-incompatible{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.3)}
+.cr-conflict{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.25)}
+.cr-unknown{background:rgba(100,116,139,.08);border-color:rgba(100,116,139,.2)}
+.cr-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cr-icon{font-size:20px}
+.cr-pair{font-size:13px;font-weight:700}
+.cr-note{font-size:12px;color:var(--tx2);line-height:1.5;margin-top:4px}
+.cr-src{font-size:10px;color:var(--tx3);margin-top:6px;font-style:italic}
+.compat-all-ok{text-align:center;padding:20px;color:var(--grn);font-size:16px;font-weight:600}
+.compat-warn{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);
+  border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--ylw);line-height:1.5}
 
-/* SOURCE */
-.source-text{font-size:11px;color:var(--tx3);line-height:1.6;font-style:italic}
+/* AI AGENT */
+#v-ai{display:flex;flex-direction:column;height:100%}
+.ai-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px}
+.ai-input-wrap{padding:10px 14px calc(var(--sb)+10px);background:var(--s1);
+  border-top:1px solid var(--bd);display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+.ai-input{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:12px;
+  padding:10px 14px;color:var(--tx);font-size:15px;outline:none;resize:none;
+  max-height:120px;font-family:inherit;-webkit-appearance:none;line-height:1.4}
+.ai-input:focus{border-color:var(--ac)}
+.ai-input::placeholder{color:var(--tx3)}
+.ai-send{background:var(--ac2);border:none;border-radius:10px;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;color:white;font-size:18px}
+.ai-send:disabled{opacity:.4;pointer-events:none}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.6}
+.msg-user{background:var(--ac2);color:white;align-self:flex-end;border-bottom-right-radius:4px}
+.msg-ai{background:var(--s2);color:var(--tx);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--bd)}
+.msg-ai.loading{color:var(--tx3)}
+.ai-disclaimer{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);
+  border-radius:10px;padding:10px 12px;font-size:11px;color:var(--ylw);
+  line-height:1.5;margin-bottom:10px;flex-shrink:0}
+.ai-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}
+.ai-sug{background:var(--s2);border:1px solid var(--bd);border-radius:20px;
+  padding:6px 12px;font-size:12px;cursor:pointer;color:var(--tx2)}
+.ai-sug:active{border-color:var(--ac);color:var(--ac)}
+.ai-config{padding:14px;background:var(--s1);border-bottom:1px solid var(--bd);flex-shrink:0}
+.ai-key-input{width:100%;background:var(--bg);border:1px solid var(--bd);
+  border-radius:8px;padding:8px 12px;color:var(--tx);font-size:13px;outline:none;
+  font-family:monospace}
+.ai-key-input::placeholder{color:var(--tx3)}
+.ai-key-btn{background:var(--ac2);border:none;border-radius:8px;padding:8px 14px;
+  color:white;font-size:13px;cursor:pointer;margin-top:6px;width:100%}
+.ai-key-wrap{display:flex;gap:6px;align-items:center}
+.ai-key-wrap .ai-key-input{flex:1}
+.ai-key-wrap .ai-key-btn{width:auto;margin-top:0;white-space:nowrap}
 
-/* ── SEARCH RESULTS ── */
+/* INDEX */
+.idx-letter{padding:10px 14px 4px;font-size:11px;font-weight:700;
+  color:var(--tx3);text-transform:uppercase;letter-spacing:1px;
+  position:sticky;top:0;background:var(--bg);z-index:5}
+.idx-row{padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:pointer;display:flex;align-items:center;gap:10px}
+.idx-row:active{background:var(--s2)}
+.idx-name{font-size:14px;flex:1}
+
+/* SEARCH RESULTS */
 #v-search{padding:10px}
 .sr-count{font-size:11px;color:var(--tx3);padding:2px 4px;margin-bottom:6px}
-.sr-row{
-  background:var(--s1);border:1px solid var(--bd);
-  border-radius:10px;padding:12px 14px;margin-bottom:6px;cursor:pointer
-}
+.sr-row{background:var(--s1);border:1px solid var(--bd);border-radius:10px;
+  padding:12px 14px;margin-bottom:6px;cursor:pointer}
 .sr-row:active{background:var(--s2);border-color:var(--ac)}
-.sr-name{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:3px}
-.sr-cat{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
+.sr-name{font-size:14px;font-weight:600;margin-bottom:3px}
 .hl{color:var(--ac);font-weight:700}
 #no-results{text-align:center;padding:50px 20px;color:var(--tx3)}
 #no-results .em{font-size:36px;display:block;margin-bottom:10px}
 
-/* ── CATEGORY COLORS ── */
+/* CATEGORY COLORS */
 .cat-emergencia{color:#f87171;background:rgba(248,113,113,.12)}
 .cat-sedacao{color:#a78bfa;background:rgba(167,139,250,.12)}
 .cat-bnmnd{color:#60a5fa;background:rgba(96,165,250,.12)}
@@ -242,52 +225,25 @@ html,body{
 .cat-electrolitico{color:#a3e635;background:rgba(163,230,53,.12)}
 .cat-metabolismo{color:#4ade80;background:rgba(74,222,128,.12)}
 .cat-antidoto{color:#facc15;background:rgba(250,204,21,.12)}
-
-.dot-emergencia{background:#f87171}
-.dot-sedacao{background:#a78bfa}
-.dot-bnmnd{background:#60a5fa}
-.dot-vasoactivo{background:#f97316}
-.dot-antiepileptico{background:#34d399}
-.dot-analgesico{background:#fbbf24}
-.dot-antibiotico{background:#38bdf8}
-.dot-corticoide{background:#e879f9}
-.dot-broncodilatador{background:#86efac}
-.dot-diuretico{background:#7dd3fc}
-.dot-neonatologia{background:#fda4af}
-.dot-hemostase{background:#fb923c}
-.dot-cardiovascular{background:#f472b6}
-.dot-electrolitico{background:#a3e635}
-.dot-metabolismo{background:#4ade80}
-.dot-antidoto{background:#facc15}
-
-/* ── INDEX ── */
-.idx-letter{
-  padding:10px 14px 4px;font-size:11px;font-weight:700;
-  color:var(--tx3);text-transform:uppercase;letter-spacing:1px;
-  position:sticky;top:0;background:var(--bg);z-index:5
-}
-.idx-row{
-  padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.04);
-  cursor:pointer;display:flex;align-items:center;gap:10px
-}
-.idx-row:active{background:var(--s2)}
-.idx-row-name{font-size:14px;flex:1}
-.idx-row-cat{font-size:10px;padding:2px 6px;border-radius:4px;
-  font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.dot-emergencia{background:#f87171}.dot-sedacao{background:#a78bfa}
+.dot-bnmnd{background:#60a5fa}.dot-vasoactivo{background:#f97316}
+.dot-antiepileptico{background:#34d399}.dot-analgesico{background:#fbbf24}
+.dot-antibiotico{background:#38bdf8}.dot-corticoide{background:#e879f9}
+.dot-broncodilatador{background:#86efac}.dot-diuretico{background:#7dd3fc}
+.dot-neonatologia{background:#fda4af}.dot-hemostase{background:#fb923c}
+.dot-cardiovascular{background:#f472b6}.dot-electrolitico{background:#a3e635}
+.dot-metabolismo{background:#4ade80}.dot-antidoto{background:#facc15}
 </style>
 </head>
 <body>
 <div id="app">
-
-  <!-- HEADER -->
   <div id="hd">
     <div class="hd-top">
       <div class="hd-logo">UCI<br>PED</div>
       <div class="hd-info">
         <h1>UCIP Pediatria</h1>
-        <p>Formulário Farmacológico · Evidence-Based</p>
+        <p id="drug-count">Formulário farmacológico · Evidence-Based</p>
       </div>
-      <div class="hd-count" id="drug-count"></div>
     </div>
     <div class="srch">
       <span class="si">🔍</span>
@@ -297,165 +253,127 @@ html,body{
     </div>
   </div>
 
-  <!-- TABS -->
-  <div id="tabs">
-    <div class="tab on" onclick="showTab('home')" id="tab-home">🏠 Início</div>
-    <div class="tab" onclick="showTab('emergencia')" id="tab-emergencia">⚡ Emergência</div>
-    <div class="tab" onclick="showTab('sedacao')" id="tab-sedacao">💉 Sedação</div>
-    <div class="tab" onclick="showTab('antibiotico')" id="tab-antibiotico">🦠 Antibióticos</div>
-    <div class="tab" onclick="showTab('neuro')" id="tab-neuro">🧠 Neurologia</div>
-    <div class="tab" onclick="showTab('neo')" id="tab-neo">🍼 Neonatologia</div>
-    <div class="tab" onclick="showTab('indice')" id="tab-indice">📋 Índice</div>
+  <div id="main">
+    <div id="v-home" class="view on"></div>
+    <div id="v-compat" class="view">
+      <div class="compat-title">🔬 Compatibilidade EV</div>
+      <div class="compat-sub">Seleccione 2 ou mais fármacos que correm no mesmo acesso. Os dados baseiam-se em Trissel's ASHP, King Guide 2024, NHS Medusa 2024 e Leeds PICU Chart 2024.</div>
+      <div class="compat-warn">⚠️ Esta ferramenta fornece orientação baseada em evidência publicada. Compatibilidade pode variar com concentração, diluente e temperatura. Confirme sempre com farmacêutico em caso de dúvida.</div>
+      <div class="compat-search-wrap">
+        <span class="cs-icon">💊</span>
+        <input type="search" id="compat-si" placeholder="Adicionar fármaco..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="drug-suggestions" id="drug-sugs"></div>
+      <div class="drug-chips" id="drug-chips"></div>
+      <button class="compat-btn" id="compat-btn" onclick="checkCompat()" disabled>Verificar Compatibilidade</button>
+      <div id="compat-results"></div>
+    </div>
+    <div id="v-ai" class="view">
+      <div class="ai-config" id="ai-config">
+        <div style="font-size:12px;color:var(--tx3);margin-bottom:8px">🤖 Agente IA — Introduza a sua chave API (xAI/Grok ou Anthropic)</div>
+        <div class="ai-key-wrap">
+          <input type="password" class="ai-key-input" id="ai-key" placeholder="xai-... ou sk-ant-...">
+          <button class="ai-key-btn" onclick="saveKey()">Guardar</button>
+        </div>
+        <div style="font-size:10px;color:var(--tx3);margin-top:6px">A chave fica guardada apenas neste dispositivo (localStorage). Nunca é enviada para servidores nossos.</div>
+      </div>
+      <div class="ai-disclaimer">⚠️ O agente IA fornece informação de apoio à decisão clínica. Não substitui julgamento clínico, farmacêutico ou guidelines institucionais. Confirme doses sempre.</div>
+      <div class="ai-suggestions" id="ai-sugs">
+        <div class="ai-sug" onclick="askSug(this)">Dose de adrenalina em anafilaxia</div>
+        <div class="ai-sug" onclick="askSug(this)">Protocolo de CAD pediátrico</div>
+        <div class="ai-sug" onclick="askSug(this)">Desmame de midazolam UCIP</div>
+        <div class="ai-sug" onclick="askSug(this)">Sedação para procedimento em lactente</div>
+        <div class="ai-sug" onclick="askSug(this)">Tratamento do status epilepticus</div>
+      </div>
+      <div class="ai-msgs" id="ai-msgs"></div>
+      <div class="ai-input-wrap">
+        <textarea class="ai-input" id="ai-inp" placeholder="Fazer uma questão clínica..." rows="1" onkeydown="aiKeydown(event)"></textarea>
+        <button class="ai-send" id="ai-send" onclick="sendAI()">↑</button>
+      </div>
+    </div>
+    <div id="v-indice" class="view"></div>
+    <div id="v-search" class="view"></div>
+    <div id="v-detail" class="view"></div>
   </div>
 
-  <!-- MAIN -->
-  <div id="main">
-
-    <!-- HOME -->
-    <div id="v-home" class="view on"></div>
-
-    <!-- EMERGENCIA -->
-    <div id="v-emergencia" class="view"></div>
-
-    <!-- SEDACAO -->
-    <div id="v-sedacao" class="view"></div>
-
-    <!-- ANTIBIOTICOS -->
-    <div id="v-antibiotico" class="view"></div>
-
-    <!-- NEURO -->
-    <div id="v-neuro" class="view"></div>
-
-    <!-- NEO -->
-    <div id="v-neo" class="view"></div>
-
-    <!-- INDICE -->
-    <div id="v-indice" class="view"></div>
-
-    <!-- SEARCH -->
-    <div id="v-search" class="view"></div>
-
-    <!-- DETAIL -->
-    <div id="v-detail" class="view"></div>
-
+  <div id="bnav">
+    <div class="bnav-tab on" onclick="showTab('home')" id="tab-home">
+      <span class="ico">💊</span><span class="lbl">Fármacos</span>
+    </div>
+    <div class="bnav-tab" onclick="showTab('compat')" id="tab-compat">
+      <span class="ico">🔬</span><span class="lbl">Compat.</span>
+    </div>
+    <div class="bnav-tab" onclick="showTab('ai')" id="tab-ai">
+      <span class="ico">🤖</span><span class="lbl">IA</span>
+    </div>
+    <div class="bnav-tab" onclick="showTab('indice')" id="tab-indice">
+      <span class="ico">📋</span><span class="lbl">Índice</span>
+    </div>
   </div>
 </div>
 
 <script src="drugs_data.js"></script>
+<script src="compat_data.js"></script>
 <script>
-// ── CONFIG ──
+// ── CONSTANTS ──
 var CAT_LABELS = {
-  emergencia:'Emergência / Reanimação',
-  sedacao:'Sedação & Analgesia',
-  bnmnd:'Bloqueadores Neuromusculares',
-  vasoactivo:'Vasoactivos / Inotrópicos',
-  antiepileptico:'Antiepilépticos',
-  analgesico:'Analgesia / Antipiréticos',
-  antibiotico:'Antibióticos',
-  corticoide:'Corticoides',
-  broncodilatador:'Broncodilatadores',
-  diuretico:'Diuréticos',
-  neonatologia:'Neonatologia',
-  hemostase:'Hemostase / Coagulação',
-  cardiovascular:'Cardiovascular',
-  electrolitico:'Electrólitos',
-  metabolismo:'Metabolismo',
-  antidoto:'Antídotos'
+  emergencia:'Emergência',sedacao:'Sedação',bnmnd:'BNMND',vasoactivo:'Vasoactivo',
+  antiepileptico:'Antiepiléptico',analgesico:'Analgesia',antibiotico:'Antibiótico',
+  corticoide:'Corticoide',broncodilatador:'Broncodilatador',diuretico:'Diurético',
+  neonatologia:'Neonatologia',hemostase:'Hemostase',cardiovascular:'Cardiovascular',
+  electrolitico:'Electrólito',metabolismo:'Metabolismo',antidoto:'Antídoto'
 };
 
-var SRC_LABEL = {
-  original: '✓ Baseado no Formulário de Pediatria 3ª Ed.',
-  added: '★ Adicionado — fontes bibliográficas independentes'
-};
-
-// Mark sources
-DRUGS.forEach(function(d) {
-  if (!d.src) d.src = 'original';
-});
+var HOME_SECTIONS = [
+  {t:'⚡ Emergência & Reanimação',cats:['emergencia']},
+  {t:'💉 Sedação, Analgesia & BNMND',cats:['sedacao','bnmnd','analgesico']},
+  {t:'❤️ Vasoactivos & Cardiovascular',cats:['vasoactivo','cardiovascular','diuretico']},
+  {t:'🧠 Neurologia',cats:['antiepileptico']},
+  {t:'🦠 Anti-infecciosos & Antídotos',cats:['antibiotico','antidoto']},
+  {t:'🫁 Broncodilatadores & Corticoides',cats:['broncodilatador','corticoide']},
+  {t:'🍼 Neonatologia',cats:['neonatologia']},
+  {t:'🧪 Electrólitos & Metabolismo',cats:['electrolitico','metabolismo','hemostase']}
+];
 
 // ── STATE ──
-var currentTab = 'home';
-var prevTab = 'home';
-var currentDetail = null;
+var curTab = 'home', prevTab = 'home';
+var selectedDrugs = [];
+var aiHistory = [];
+var aiKey = '';
 
 // ── INIT ──
-document.getElementById('drug-count').textContent = DRUGS.length + ' fármacos';
+document.getElementById('drug-count').textContent = DRUGS.length + ' fármacos · Evidence-Based';
 buildHome();
-buildCatView('v-emergencia', ['emergencia']);
-buildCatView('v-sedacao', ['sedacao','bnmnd']);
-buildCatView('v-antibiotico', ['antibiotico','antidoto']);
-buildCatView('v-neuro', ['antiepileptico']);
-buildCatView('v-neo', ['neonatologia']);
 buildIndex();
+loadAIKey();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(function(){});
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(function(){});
-}
-
-// ── BUILD HOME ──
+// ── HOME ──
 function buildHome() {
-  var sections = [
-    {title:'⚡ Emergência & Reanimação', cats:['emergencia']},
-    {title:'💉 Sedação, Analgesia & BNMND', cats:['sedacao','bnmnd','analgesico']},
-    {title:'❤️ Vasoactivos & Cardiovascular', cats:['vasoactivo','cardiovascular','diuretico']},
-    {title:'🧠 Neurologia', cats:['antiepileptico']},
-    {title:'🦠 Anti-infecciosos', cats:['antibiotico','antidoto']},
-    {title:'🫁 Broncodilatadores & Corticoides', cats:['broncodilatador','corticoide']},
-    {title:'🍼 Neonatologia', cats:['neonatologia']},
-    {title:'🧪 Electrólitos & Metabolismo', cats:['electrolitico','metabolismo','hemostase']}
-  ];
   var html = '';
-  sections.forEach(function(sec) {
+  HOME_SECTIONS.forEach(function(sec) {
     var drugs = DRUGS.filter(function(d){ return sec.cats.indexOf(d.category) >= 0; });
     if (!drugs.length) return;
-    html += '<div class="section-hd">' + sec.title + '</div>';
-    html += '<div class="drug-list">';
-    drugs.forEach(function(d) {
-      html += drugRowHtml(d);
-    });
+    html += '<div class="sec-hd">'+sec.t+'</div><div class="drug-list">';
+    drugs.forEach(function(d){ html += drugRowHtml(d); });
     html += '</div>';
   });
   document.getElementById('v-home').innerHTML = html;
 }
 
-// ── BUILD CAT VIEW ──
-function buildCatView(vid, cats) {
-  var drugs = DRUGS.filter(function(d){ return cats.indexOf(d.category) >= 0; });
-  var grouped = {};
-  drugs.forEach(function(d){
-    if (!grouped[d.category]) grouped[d.category] = [];
-    grouped[d.category].push(d);
-  });
-  var html = '';
-  cats.forEach(function(cat){
-    if (!grouped[cat] || !grouped[cat].length) return;
-    html += '<div class="section-hd">' + (CAT_LABELS[cat] || cat) + '</div>';
-    html += '<div class="drug-list">';
-    grouped[cat].forEach(function(d){ html += drugRowHtml(d); });
-    html += '</div>';
-  });
-  document.getElementById(vid).innerHTML = html;
-}
-
-// ── DRUG ROW ──
 function drugRowHtml(d) {
   var idx = DRUGS.indexOf(d);
   return '<div class="drug-row" onclick="showDetail('+idx+')">' +
     '<div class="drug-dot dot-'+d.category+'"></div>' +
-    '<div class="drug-info">' +
-      '<div class="drug-name">'+esc(d.name)+'</div>' +
-      '<div class="drug-class">'+esc(d.class.split('—')[0].trim())+'</div>' +
-    '</div>' +
-    '<span class="cat-badge cat-'+d.category+'">'+esc(CAT_LABELS[d.category]||d.category).split(' ')[0]+'</span>' +
-    '<span class="drug-arrow">›</span>' +
-  '</div>';
+    '<div class="drug-info"><div class="drug-name">'+esc(d.name)+'</div>' +
+    '<div class="drug-class">'+esc(d.class.split('—')[0].trim())+'</div></div>' +
+    '<span class="cat-pill cat-'+d.category+'">'+esc(CAT_LABELS[d.category]||d.category)+'</span>' +
+    '<span class="drug-arr">›</span></div>';
 }
 
-// ── BUILD INDEX ──
+// ── INDEX ──
 function buildIndex() {
-  var sorted = DRUGS.slice().sort(function(a,b){
-    return a.name.localeCompare(b.name,'pt');
-  });
+  var sorted = DRUGS.slice().sort(function(a,b){ return a.name.localeCompare(b.name,'pt'); });
   var letters = {};
   sorted.forEach(function(d){
     var l = d.name[0].toUpperCase();
@@ -468,41 +386,33 @@ function buildIndex() {
     letters[l].forEach(function(d){
       var idx = DRUGS.indexOf(d);
       html += '<div class="idx-row" onclick="showDetail('+idx+')">' +
-        '<div class="drug-dot dot-'+d.category+'" style="width:7px;height:7px"></div>' +
-        '<div class="idx-row-name">'+esc(d.name)+'</div>' +
-        '<span class="idx-row-cat cat-'+d.category+'">'+esc((CAT_LABELS[d.category]||d.category).split(' ')[0])+'</span>' +
-        '<span class="drug-arrow">›</span>' +
-      '</div>';
+        '<div class="drug-dot dot-'+d.category+'" style="width:7px;height:7px;flex-shrink:0"></div>' +
+        '<div class="idx-name">'+esc(d.name)+'</div>' +
+        '<span class="cat-pill cat-'+d.category+'" style="flex-shrink:0">'+esc(CAT_LABELS[d.category]||d.category)+'</span>' +
+        '<span class="drug-arr">›</span></div>';
     });
   });
   document.getElementById('v-indice').innerHTML = html;
 }
 
-// ── SHOW DETAIL ──
+// ── DETAIL ──
 function showDetail(idx) {
   var d = DRUGS[idx];
-  currentDetail = idx;
-  prevTab = currentTab;
-
+  prevTab = curTab;
   var src = d.src === 'added'
-    ? '<span class="src-badge src-added">★ Adicionado — fontes bibliográficas</span>'
-    : '<span class="src-badge src-original">✓ Formulário de Pediatria 3ª Ed.</span>';
-
-  // Indications
+    ? '<span class="src-badge src-add">★ Adicionado — fontes bibliográficas</span>'
+    : '<span class="src-badge src-ok">✓ Formulário de Pediatria 3ª Ed.</span>';
   var inds = '';
   if (d.indication && d.indication.length) {
     inds = '<div class="card"><div class="card-title">Indicações</div><ul class="ind-list">';
     d.indication.forEach(function(i){ inds += '<li>'+esc(i)+'</li>'; });
     inds += '</ul></div>';
   }
-
-  // Doses
   var doses = '';
   if (d.dose && d.dose.length) {
     doses = '<div class="card"><div class="card-title">Posologia Pediátrica</div>';
     d.dose.forEach(function(dv){
-      doses += '<div class="dose-item">';
-      doses += '<div class="dose-ind">'+esc(dv.ind)+'</div>';
+      doses += '<div class="dose-item"><div class="dose-ind">'+esc(dv.ind)+'</div>';
       doses += '<div class="dose-val">'+esc(dv.val)+'</div>';
       if (dv.max) doses += '<div class="dose-max">Máx: '+esc(dv.max)+'</div>';
       if (dv.freq) doses += '<div class="dose-freq">'+esc(dv.freq)+'</div>';
@@ -511,124 +421,306 @@ function showDetail(idx) {
     });
     doses += '</div>';
   }
-
-  // Prep
-  var prep = '';
-  if (d.prep) {
-    prep = '<div class="card"><div class="card-title">Preparação & Administração</div>' +
-      '<div class="prep-text">'+esc(d.prep)+'</div></div>';
-  }
-
-  // CI
+  var prep = d.prep ? '<div class="card"><div class="card-title">Preparação & Administração</div><div class="prep-text">'+esc(d.prep)+'</div></div>' : '';
   var ci = '';
   if (d.ci && d.ci.length) {
     ci = '<div class="card"><div class="card-title">Contra-indicações</div>';
     d.ci.forEach(function(c){ ci += '<div class="ci-item">'+esc(c)+'</div>'; });
     ci += '</div>';
   }
-
-  // Alerts
   var alerts = '';
   if (d.alert && d.alert.length) {
     alerts = '<div class="card"><div class="card-title">⚠️ Alertas Clínicos</div>';
     d.alert.forEach(function(a){ alerts += '<div class="alert-item">'+esc(a)+'</div>'; });
     alerts += '</div>';
   }
-
-  // Source
-  var source = '';
-  if (d.source) {
-    source = '<div class="card"><div class="card-title">Fontes</div>' +
-      '<div class="source-text">'+esc(d.source)+'</div></div>';
-  }
-
-  var html =
-    '<div class="detail-hd">' +
-      '<button class="back-btn" onclick="goBack()">‹ Voltar</button>' +
-      '<div class="detail-name">'+esc(d.name)+'</div>' +
-      '<div class="detail-class">'+esc(d.class)+'</div>' +
-      src +
-    '</div>' +
-    '<div class="detail-body">' +
-      inds + doses + prep + ci + alerts + source +
-    '</div>';
-
-  document.getElementById('v-detail').innerHTML = html;
-  showView('detail');
+  var source = d.source ? '<div class="card"><div class="card-title">Fontes</div><div class="src-text">'+esc(d.source)+'</div></div>' : '';
+  document.getElementById('v-detail').innerHTML =
+    '<div class="det-hd"><button class="back-btn" onclick="goBack()">‹ Voltar</button>' +
+    '<div class="det-name">'+esc(d.name)+'</div><div class="det-class">'+esc(d.class)+'</div>'+src+'</div>' +
+    '<div class="det-body">'+inds+doses+prep+ci+alerts+source+'</div>';
   document.getElementById('v-detail').scrollTo(0,0);
+  showView('detail');
 }
-
-function goBack() {
-  showTab(prevTab, true);
-}
+function goBack() { showTab(prevTab === 'detail' ? 'home' : prevTab, true); }
 
 // ── SEARCH ──
 var si = document.getElementById('si');
-var sc = document.getElementById('sc');
 var db;
-
 si.addEventListener('input', function(){
   clearTimeout(db);
   var q = si.value.trim();
-  sc.style.display = q ? 'block' : 'none';
-  if (!q) { showTab(currentTab === 'search' ? prevTab : currentTab, true); return; }
+  document.getElementById('sc').style.display = q ? 'block' : 'none';
+  if (!q) { showTab(curTab === 'search' ? prevTab : curTab, true); return; }
   db = setTimeout(function(){ doSearch(q); }, 200);
 });
-
 function clearSrch() {
-  si.value = '';
-  sc.style.display = 'none';
-  showTab(prevTab === 'search' ? 'home' : prevTab, true);
-  si.blur();
+  si.value = ''; document.getElementById('sc').style.display = 'none';
+  showTab(prevTab === 'search' ? 'home' : prevTab, true); si.blur();
 }
-
 function doSearch(query) {
   var q = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   var matches = [];
-  DRUGS.forEach(function(d, idx){
-    var score = 0;
-    var nameNorm = d.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    if (nameNorm.includes(q)) score += nameNorm.startsWith(q) ? 20 : 10;
-    var classNorm = d.class.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    if (classNorm.includes(q)) score += 5;
-    if (d.indication) {
-      d.indication.forEach(function(i){
-        if (i.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q)) score += 3;
-      });
-    }
-    if (score > 0) matches.push({d:d, idx:idx, score:score});
+  DRUGS.forEach(function(d,idx){
+    var sc = 0;
+    var nm = d.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if (nm.includes(q)) sc += nm.startsWith(q) ? 20 : 10;
+    if (d.class.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q)) sc += 5;
+    if (d.indication) d.indication.forEach(function(i){
+      if (i.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q)) sc += 3;
+    });
+    if (sc > 0) matches.push({d:d,idx:idx,score:sc});
   });
   matches.sort(function(a,b){ return b.score - a.score; });
-
-  var re = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
-  var html = matches.length
-    ? '<div class="sr-count">'+matches.length+' resultado(s)</div>'
-    : '<div id="no-results"><span class="em">🔎</span>Sem resultados para "'+esc(query)+'"</div>';
-
+  var re = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  var html = matches.length ? '<div class="sr-count">'+matches.length+' resultado(s)</div>' :
+    '<div id="no-results"><span class="em">🔎</span>Sem resultados para "'+esc(query)+'"</div>';
   matches.forEach(function(m){
-    var nameHl = esc(m.d.name).replace(re, function(x){ return '<span class="hl">'+x+'</span>'; });
     html += '<div class="sr-row" onclick="showDetail('+m.idx+')">' +
-      '<div class="sr-name">'+nameHl+'</div>' +
-      '<div class="sr-cat cat-'+m.d.category+'" style="margin-top:4px;display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">'+esc(CAT_LABELS[m.d.category]||m.d.category)+'</div>' +
-    '</div>';
+      '<div class="sr-name">'+esc(m.d.name).replace(re,function(x){ return '<span class="hl">'+x+'</span>'; })+'</div>' +
+      '<span class="cat-pill cat-'+m.d.category+'" style="display:inline-block;margin-top:4px">'+esc(CAT_LABELS[m.d.category])+'</span></div>';
   });
-
   document.getElementById('v-search').innerHTML = html;
   showView('search');
 }
 
-// ── NAVIGATION ──
-function showTab(tab, keepSearch) {
-  if (!keepSearch) { si.value = ''; sc.style.display = 'none'; }
-  currentTab = tab;
-  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-  var tabEl = document.getElementById('tab-'+tab);
-  if (tabEl) tabEl.classList.add('on');
-  showView(tab);
+// ── COMPATIBILITY ──
+var compatInput = document.getElementById('compat-si');
+var compatSugs = document.getElementById('drug-sugs');
+
+// Build drug list for compat from drugs data + compat_data keys
+var COMPAT_DRUG_LIST = [];
+DRUGS.forEach(function(d){ COMPAT_DRUG_LIST.push({id: d.id, name: d.name}); });
+// Add drugs from compat that might not be in DRUGS list
+COMPAT_DRUGS.forEach(function(id){
+  if (!COMPAT_DRUG_LIST.find(function(d){ return d.id === id; })) {
+    COMPAT_DRUG_LIST.push({id: id, name: id.replace(/_/g,' ')});
+  }
+});
+
+compatInput.addEventListener('input', function(){
+  var q = this.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  if (!q) { compatSugs.style.display = 'none'; return; }
+  var matches = COMPAT_DRUG_LIST.filter(function(d){
+    return d.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q) &&
+      !selectedDrugs.find(function(s){ return s.id === d.id; });
+  }).slice(0,6);
+  if (!matches.length) { compatSugs.style.display = 'none'; return; }
+  compatSugs.innerHTML = matches.map(function(d){
+    return '<div class="drug-sug-item" onclick="addDrug(\''+d.id+'\',\''+esc(d.name)+'\')">'+esc(d.name)+'</div>';
+  }).join('');
+  compatSugs.style.display = 'block';
+});
+
+function addDrug(id, name) {
+  if (selectedDrugs.find(function(d){ return d.id === id; })) return;
+  if (selectedDrugs.length >= 8) return;
+  selectedDrugs.push({id:id, name:name});
+  compatInput.value = '';
+  compatSugs.style.display = 'none';
+  renderChips();
+  document.getElementById('compat-btn').disabled = selectedDrugs.length < 2;
+  document.getElementById('compat-results').innerHTML = '';
 }
 
+function removeDrug(id) {
+  selectedDrugs = selectedDrugs.filter(function(d){ return d.id !== id; });
+  renderChips();
+  document.getElementById('compat-btn').disabled = selectedDrugs.length < 2;
+  document.getElementById('compat-results').innerHTML = '';
+}
+
+function renderChips() {
+  document.getElementById('drug-chips').innerHTML = selectedDrugs.map(function(d){
+    return '<div class="chip">'+esc(d.name)+'<span class="rm" onclick="removeDrug(\''+d.id+'\')">✕</span></div>';
+  }).join('');
+}
+
+function checkCompat() {
+  if (selectedDrugs.length < 2) return;
+  var results = [];
+  var hasIncompat = false;
+  for (var i = 0; i < selectedDrugs.length; i++) {
+    for (var j = i+1; j < selectedDrugs.length; j++) {
+      var a = selectedDrugs[i].id, b = selectedDrugs[j].id;
+      var key1 = a+'|'+b, key2 = b+'|'+a;
+      var data = COMPAT[key1] || COMPAT[key2];
+      results.push({
+        a: selectedDrugs[i].name,
+        b: selectedDrugs[j].name,
+        data: data || null
+      });
+      if (data && (data.s === 'I' || data.s === 'X')) hasIncompat = true;
+    }
+  }
+  var html = '';
+  if (!hasIncompat && results.every(function(r){ return r.data && r.data.s === 'C'; })) {
+    html += '<div class="compat-all-ok">✅ Todas as combinações são compatíveis</div>';
+  }
+  results.forEach(function(r) {
+    var d = r.data;
+    var cls, icon, label;
+    if (!d) { cls='cr-unknown'; icon='❓'; label='Sem dados'; }
+    else if (d.s==='C') { cls='cr-compatible'; icon='✅'; label='Compatível'; }
+    else if (d.s==='I') { cls='cr-incompatible'; icon='⛔'; label='INCOMPATÍVEL'; }
+    else if (d.s==='X') { cls='cr-conflict'; icon='⚠️'; label='Dados conflituosos'; }
+    else { cls='cr-unknown'; icon='❓'; label='Sem dados'; }
+    html += '<div class="compat-result '+cls+'">' +
+      '<div class="cr-header"><span class="cr-icon">'+icon+'</span>' +
+      '<span class="cr-pair">'+esc(r.a)+' + '+esc(r.b)+'</span></div>' +
+      '<div style="font-size:12px;font-weight:700;margin-bottom:4px">'+label+'</div>';
+    if (d) {
+      html += '<div class="cr-note">'+esc(d.n)+'</div>';
+      html += '<div class="cr-src">Fonte: '+esc(d.src)+'</div>';
+    } else {
+      html += '<div class="cr-note">Combinação não testada na literatura disponível. Consultar farmacêutico.</div>';
+    }
+    html += '</div>';
+  });
+  document.getElementById('compat-results').innerHTML = html;
+}
+
+// ── AI AGENT ──
+function loadAIKey() {
+  try {
+    var k = localStorage.getItem('ucip_ai_key');
+    if (k) { aiKey = k; document.getElementById('ai-config').style.display = 'none'; }
+  } catch(e) {}
+}
+function saveKey() {
+  var k = document.getElementById('ai-key').value.trim();
+  if (!k) return;
+  aiKey = k;
+  try { localStorage.setItem('ucip_ai_key', k); } catch(e) {}
+  document.getElementById('ai-config').style.display = 'none';
+  addMsg('ai', '✅ Chave guardada. Pode fazer questões clínicas agora.');
+}
+
+function askSug(el) {
+  document.getElementById('ai-inp').value = el.textContent;
+  document.getElementById('ai-sugs').style.display = 'none';
+  sendAI();
+}
+
+function aiKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAI(); }
+}
+
+function addMsg(role, text) {
+  var msgs = document.getElementById('ai-msgs');
+  var div = document.createElement('div');
+  div.className = 'msg msg-' + role;
+  div.innerHTML = text.replace(/\n/g, '<br>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+async function sendAI() {
+  var inp = document.getElementById('ai-inp');
+  var q = inp.value.trim();
+  if (!q) return;
+  if (!aiKey) {
+    addMsg('ai', '⚠️ Introduza primeiro a sua chave API no topo desta secção.');
+    return;
+  }
+  inp.value = '';
+  inp.style.height = 'auto';
+  document.getElementById('ai-sugs').style.display = 'none';
+  addMsg('user', esc(q));
+  document.getElementById('ai-send').disabled = true;
+  var loading = addMsg('ai', '⟳ A pensar...');
+  loading.classList.add('loading');
+
+  // Build context from our drug database
+  var drugContext = DRUGS.map(function(d){
+    return d.name + ' (' + d.category + ')';
+  }).join(', ');
+
+  var systemPrompt = 'És um assistente clínico especializado em Medicina Intensiva Pediátrica (UCIP). ' +
+    'Respondes sempre em português de Portugal. ' +
+    'Forneces informação clínica precisa, baseada em evidência, com fontes quando possível. ' +
+    'Sempre que relevante, alertas para riscos de segurança e doses máximas. ' +
+    'Nunca substituis julgamento clínico — sempre lembras o utilizador de confirmar com guidelines institucionais. ' +
+    'O utilizador é um médico intensivista pediátrico. ' +
+    'A base de dados local inclui: ' + drugContext + '. ' +
+    'Para fármacos não listados, usa o teu conhecimento médico actualizado.';
+
+  aiHistory.push({role:'user', content: q});
+
+  try {
+    var isXAI = aiKey.startsWith('xai-');
+    var endpoint = isXAI
+      ? 'https://api.x.ai/v1/chat/completions'
+      : 'https://api.anthropic.com/v1/messages';
+
+    var response, data, replyText;
+
+    if (isXAI) {
+      // Grok API (OpenAI-compatible)
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer '+aiKey },
+        body: JSON.stringify({
+          model: 'grok-2-latest',
+          messages: [{role:'system',content:systemPrompt}].concat(aiHistory),
+          max_tokens: 1200,
+          temperature: 0.3
+        })
+      });
+      data = await response.json();
+      if (!response.ok) throw new Error(data.error?.message || 'Erro API xAI');
+      replyText = data.choices[0].message.content;
+    } else {
+      // Anthropic API
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': aiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1200,
+          system: systemPrompt,
+          messages: aiHistory
+        })
+      });
+      data = await response.json();
+      if (!response.ok) throw new Error(data.error?.message || 'Erro API Anthropic');
+      replyText = data.content[0].text;
+    }
+
+    aiHistory.push({role:'assistant', content: replyText});
+    loading.classList.remove('loading');
+    loading.innerHTML = esc(replyText).replace(/\n/g,'<br>');
+  } catch(err) {
+    loading.classList.remove('loading');
+    loading.innerHTML = '❌ Erro: ' + esc(err.message) + '<br><br>Verifique a chave API e a ligação à internet.';
+    aiHistory.pop();
+  }
+  document.getElementById('ai-send').disabled = false;
+}
+
+// Auto-resize textarea
+document.getElementById('ai-inp').addEventListener('input', function(){
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+
+// ── NAVIGATION ──
+function showTab(tab, keepSrch) {
+  if (!keepSrch) { si.value = ''; document.getElementById('sc').style.display = 'none'; }
+  curTab = tab;
+  document.querySelectorAll('.bnav-tab').forEach(function(t){ t.classList.remove('on'); });
+  var el = document.getElementById('tab-'+tab);
+  if (el) el.classList.add('on');
+  showView(tab);
+}
 function showView(v) {
-  document.querySelectorAll('.view').forEach(function(el){ el.classList.remove('on'); });
+  document.querySelectorAll('.view').forEach(function(e){ e.classList.remove('on'); });
   var el = document.getElementById('v-'+v);
   if (el) el.classList.add('on');
 }
